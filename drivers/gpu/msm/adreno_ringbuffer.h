@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2002,2007-2016,2019, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2002,2007-2016,2019-2020 The Linux Foundation. All rights reserved.
+>>>>>>> f89f092a37445f02bad1cd3d01e8412588a548f5
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -171,6 +175,9 @@ int adreno_ringbuffer_issuecmds(struct adreno_ringbuffer *rb,
 
 void adreno_ringbuffer_submit(struct adreno_ringbuffer *rb,
 		struct adreno_submit_time *time);
+
+int adreno_ringbuffer_submit_spin_nosync(struct adreno_ringbuffer *rb,
+		struct adreno_submit_time *time, unsigned int timeout);
 
 int adreno_ringbuffer_submit_spin(struct adreno_ringbuffer *rb,
 		struct adreno_submit_time *time, unsigned int timeout);

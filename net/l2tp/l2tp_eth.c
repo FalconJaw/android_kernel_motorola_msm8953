@@ -217,6 +217,15 @@ static int l2tp_eth_create(struct net *net, struct l2tp_tunnel *tunnel,
 	int rc;
 	struct l2tp_eth_net *pn;
 
+<<<<<<< HEAD
+=======
+
+	session = l2tp_session_find(net, tunnel, session_id);
+	if (session) {
+		rc = -EEXIST;
+		goto out;
+	}
+>>>>>>> f89f092a37445f02bad1cd3d01e8412588a548f5
 
 	if (cfg->ifname) {
 		dev = dev_get_by_name(net, cfg->ifname);

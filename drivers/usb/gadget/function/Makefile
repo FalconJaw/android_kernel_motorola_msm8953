@@ -46,7 +46,12 @@ usb_f_audio_source-y            := f_audio_source.o
 obj-$(CONFIG_USB_F_AUDIO_SRC)   += usb_f_audio_source.o
 usb_f_accessory-y               := f_accessory.o
 obj-$(CONFIG_USB_F_ACC)         += usb_f_accessory.o
+<<<<<<< HEAD
 usb_f_usbnet-y			:= f_usbnet.o
 obj-$(CONFIG_USB_ANDROID_USBNET) += usb_f_usbnet.o
+=======
+usb_f_ipc-y                     := f_ipc.o
+obj-$(CONFIG_USB_F_IPC)         += usb_f_ipc.o
+>>>>>>> f89f092a37445f02bad1cd3d01e8412588a548f5
 
 

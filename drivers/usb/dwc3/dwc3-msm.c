@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f89f092a37445f02bad1cd3d01e8412588a548f5
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -5008,6 +5012,12 @@ static void dwc3_msm_otg_sm_work(struct work_struct *w)
 			pm_runtime_get_sync(mdwc->dev);
 			dbg_event(dwc->ctrl_num, 0xFF, "SUSP gsync",
 				atomic_read(&mdwc->dev->power.usage_count));
+		} else {
+			/*
+			 * Release PM Wakelock if PM resume had happened from
+			 * peripheral mode bus suspend case.
+			 */
+			pm_relax(mdwc->dev);
 		}
 		break;
 

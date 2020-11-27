@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2019, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2017, 2019 The Linux Foundation. All rights reserved.
+>>>>>>> f89f092a37445f02bad1cd3d01e8412588a548f5
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -408,9 +412,13 @@ static int32_t afe_callback(struct apr_client_data *data, void *priv)
 #endif /*CONFIG_SND_SOC_TFA9874*/
 		if (sp_make_afe_callback(data->payload, data->payload_size))
 			return -EINVAL;
+<<<<<<< HEAD
 #if defined(CONFIG_SND_SOC_OPALUM) || defined(CONFIG_SND_SOC_TAS2560)
 		}
 #endif
+=======
+
+>>>>>>> f89f092a37445f02bad1cd3d01e8412588a548f5
 		if (afe_token_is_valid(data->token))
 			wake_up(&this_afe.wait[data->token]);
 		else

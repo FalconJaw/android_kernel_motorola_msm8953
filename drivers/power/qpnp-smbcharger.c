@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2014-2017 The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2014-2019 The Linux Foundation. All rights reserved.
+>>>>>>> f89f092a37445f02bad1cd3d01e8412588a548f5
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -6344,6 +6348,7 @@ static int smbchg_battery_get_property(struct power_supply *psy,
 		break;
 	case POWER_SUPPLY_PROP_CURRENT_NOW:
 		val->intval = get_prop_batt_current_now(chip);
+		val->intval *= (-1);
 		break;
 	case POWER_SUPPLY_PROP_VOLTAGE_NOW:
 		val->intval = get_prop_batt_voltage_now(chip);

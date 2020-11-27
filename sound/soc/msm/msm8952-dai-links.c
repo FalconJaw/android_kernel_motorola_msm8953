@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2015-2017, 2019 The Linux Foundation. All rights reserved.
+>>>>>>> f89f092a37445f02bad1cd3d01e8412588a548f5
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1552,6 +1556,24 @@ static struct snd_soc_dai_link msm8952_common_fe_dai[] = {
 	},
 };
 
+static struct snd_soc_dai_link msm8952_common_misc_fe_dai[] = {
+	{
+		.name = "SLIMBUS_2 Hostless",
+		.stream_name = "SLIMBUS_2 Hostless",
+		.cpu_dai_name = "SLIMBUS2_HOSTLESS",
+		.platform_name = "msm-pcm-hostless",
+		.dynamic = 1,
+		.dpcm_capture = 1,
+		.trigger = {SND_SOC_DPCM_TRIGGER_POST,
+			SND_SOC_DPCM_TRIGGER_POST},
+		.no_host_mode = SND_SOC_DAI_LINK_NO_HOST,
+		.ignore_suspend = 1,
+		.ignore_pmdown_time = 1,
+		.codec_dai_name = "snd-soc-dummy-dai",
+		.codec_name = "snd-soc-dummy",
+	},
+};
+
 static struct snd_soc_dai_link msm8952_tdm_fe_dai[] = {
 	/* FE TDM DAI links */
 	{
@@ -1955,6 +1977,7 @@ static struct snd_soc_dai_link msm8952_tomtom_dai_links[
 ARRAY_SIZE(msm8952_common_fe_dai) +
 ARRAY_SIZE(msm8952_tomtom_fe_dai) +
 ARRAY_SIZE(msm8952_tdm_fe_dai) +
+ARRAY_SIZE(msm8952_common_misc_fe_dai) +
 ARRAY_SIZE(msm8952_common_be_dai) +
 ARRAY_SIZE(msm8952_tomtom_be_dai) +
 ARRAY_SIZE(msm8952_quin_dai_link) +
@@ -1965,6 +1988,7 @@ static struct snd_soc_dai_link msm8952_tasha_dai_links[
 ARRAY_SIZE(msm8952_common_fe_dai) +
 ARRAY_SIZE(msm8952_tasha_fe_dai) +
 ARRAY_SIZE(msm8952_tdm_fe_dai) +
+ARRAY_SIZE(msm8952_common_misc_fe_dai) +
 ARRAY_SIZE(msm8952_common_be_dai) +
 ARRAY_SIZE(msm8952_tasha_be_dai) +
 ARRAY_SIZE(msm8952_hdmi_dba_dai_link) +
@@ -2151,8 +2175,12 @@ struct snd_soc_card *populate_snd_card_dailinks(struct device *dev)
 {
 	struct snd_soc_card *card = &snd_soc_card_msm_card;
 	struct snd_soc_dai_link *msm8952_dai_links = NULL;
+<<<<<<< HEAD
 	int num_links, ret, len1, len2, len3, len4, len5 = 0;
 	bool albus_hw = false;
+=======
+	int num_links, ret, len1, len2, len3, len4, len5, len6 = 0;
+>>>>>>> f89f092a37445f02bad1cd3d01e8412588a548f5
 	enum codec_variant codec_ver = 0;
 	const char *tasha_lite[NUM_OF_TASHA_LITE_DEVICE] = {
 		"msm8952-tashalite-snd-card",
@@ -2171,8 +2199,9 @@ struct snd_soc_card *populate_snd_card_dailinks(struct device *dev)
 		len1 = ARRAY_SIZE(msm8952_common_fe_dai);
 		len2 = len1 + ARRAY_SIZE(msm8952_tomtom_fe_dai);
 		len3 = len2 + ARRAY_SIZE(msm8952_tdm_fe_dai);
-		len4 = len3 + ARRAY_SIZE(msm8952_common_be_dai);
-		len5 = len4 + ARRAY_SIZE(msm8952_tomtom_be_dai);
+		len4 = len3 + ARRAY_SIZE(msm8952_common_misc_fe_dai);
+		len5 = len4 + ARRAY_SIZE(msm8952_common_be_dai);
+		len6 = len5 + ARRAY_SIZE(msm8952_tomtom_be_dai);
 		snd_soc_card_msm[TOMTOM_CODEC].name = card->name;
 		card = &snd_soc_card_msm[TOMTOM_CODEC];
 		num_links = ARRAY_SIZE(msm8952_tomtom_dai_links);
@@ -2183,8 +2212,11 @@ struct snd_soc_card *populate_snd_card_dailinks(struct device *dev)
 		memcpy(msm8952_tomtom_dai_links + len2,
 			msm8952_tdm_fe_dai, sizeof(msm8952_tdm_fe_dai));
 		memcpy(msm8952_tomtom_dai_links + len3,
-			msm8952_common_be_dai, sizeof(msm8952_common_be_dai));
+			msm8952_common_misc_fe_dai,
+			sizeof(msm8952_common_misc_fe_dai));
 		memcpy(msm8952_tomtom_dai_links + len4,
+			msm8952_common_be_dai, sizeof(msm8952_common_be_dai));
+		memcpy(msm8952_tomtom_dai_links + len5,
 			msm8952_tomtom_be_dai, sizeof(msm8952_tomtom_be_dai));
 		msm8952_dai_links = msm8952_tomtom_dai_links;
 	} else if (strnstr(card->name, "tasha", strlen(card->name))) {
@@ -2202,8 +2234,9 @@ struct snd_soc_card *populate_snd_card_dailinks(struct device *dev)
 		len1 = ARRAY_SIZE(msm8952_common_fe_dai);
 		len2 = len1 + ARRAY_SIZE(msm8952_tasha_fe_dai);
 		len3 = len2 + ARRAY_SIZE(msm8952_tdm_fe_dai);
-		len4 = len3 + ARRAY_SIZE(msm8952_common_be_dai);
-		len5 = len4 + ARRAY_SIZE(msm8952_tasha_be_dai);
+		len4 = len3 + ARRAY_SIZE(msm8952_common_misc_fe_dai);
+		len5 = len4 + ARRAY_SIZE(msm8952_common_be_dai);
+		len6 = len5 + ARRAY_SIZE(msm8952_tasha_be_dai);
 		snd_soc_card_msm[TASHA_CODEC].name = card->name;
 		card = &snd_soc_card_msm[TASHA_CODEC];
 		num_links = ARRAY_SIZE(msm8952_tasha_dai_links);
@@ -2214,11 +2247,15 @@ struct snd_soc_card *populate_snd_card_dailinks(struct device *dev)
 		memcpy(msm8952_tasha_dai_links + len2,
 			msm8952_tdm_fe_dai, sizeof(msm8952_tdm_fe_dai));
 		memcpy(msm8952_tasha_dai_links + len3,
-			msm8952_common_be_dai, sizeof(msm8952_common_be_dai));
+			msm8952_common_misc_fe_dai,
+			sizeof(msm8952_common_misc_fe_dai));
 		memcpy(msm8952_tasha_dai_links + len4,
+			msm8952_common_be_dai, sizeof(msm8952_common_be_dai));
+		memcpy(msm8952_tasha_dai_links + len5,
 			msm8952_tasha_be_dai, sizeof(msm8952_tasha_be_dai));
 		msm8952_dai_links = msm8952_tasha_dai_links;
 	}
+<<<<<<< HEAD
 #ifdef CONFIG_SND_SOC_MARLEY
 	else if (!strncmp(card->name, "msm8952-marley-card", 19) ||
             !strncmp(card->name, "msm8939-tapan-snd-card", sizeof("msm8939-tapan-snd-card"))) {
@@ -2331,14 +2368,45 @@ struct snd_soc_card *populate_snd_card_dailinks(struct device *dev)
 	}	
 	if (of_property_read_bool(dev->of_node, "qcom,afe-rxtx-lb")) {
 		dev_dbg(dev, "%s(): AFE RX to TX loopback supported\n",
+=======
+
+	if (msm8952_dai_links) {
+		if (of_property_read_bool(dev->of_node,
+				"qcom,hdmi-dba-codec-rx")) {
+			dev_dbg(dev, "%s(): hdmi dba audio support present\n",
 				__func__);
-		memcpy(msm8952_dai_links + len5,
-		       msm8952_afe_rxtx_lb_be_dai_link,
-		       sizeof(msm8952_afe_rxtx_lb_be_dai_link));
-		len5 += ARRAY_SIZE(msm8952_afe_rxtx_lb_be_dai_link);
+			memcpy(msm8952_dai_links + len6,
+				msm8952_hdmi_dba_dai_link,
+				sizeof(msm8952_hdmi_dba_dai_link));
+			len6 += ARRAY_SIZE(msm8952_hdmi_dba_dai_link);
+		} else {
+			dev_dbg(dev, "%s(): No hdmi dba present, add quin dai\n",
+					__func__);
+			memcpy(msm8952_dai_links + len6, msm8952_quin_dai_link,
+				sizeof(msm8952_quin_dai_link));
+			len6 += ARRAY_SIZE(msm8952_quin_dai_link);
+		}
+		if (of_property_read_bool(dev->of_node,
+				"qcom,tdm-audio-intf")) {
+			dev_dbg(dev, "%s(): TDM support present\n",
+					__func__);
+			memcpy(msm8952_dai_links + len6,
+				msm8952_tdm_be_dai_link,
+				sizeof(msm8952_tdm_be_dai_link));
+			len6 += ARRAY_SIZE(msm8952_tdm_be_dai_link);
+		}
+		if (of_property_read_bool(dev->of_node, "qcom,afe-rxtx-lb")) {
+			dev_dbg(dev, "%s(): AFE RX to TX loopback supported\n",
+>>>>>>> f89f092a37445f02bad1cd3d01e8412588a548f5
+				__func__);
+			memcpy(msm8952_dai_links + len6,
+				msm8952_afe_rxtx_lb_be_dai_link,
+				sizeof(msm8952_afe_rxtx_lb_be_dai_link));
+			len6 += ARRAY_SIZE(msm8952_afe_rxtx_lb_be_dai_link);
+		}
 	}
 	card->dai_link = msm8952_dai_links;
-	card->num_links = len5;
+	card->num_links = len6;
 	card->dev = dev;
 
 	return card;

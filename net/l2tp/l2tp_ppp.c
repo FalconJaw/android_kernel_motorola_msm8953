@@ -826,6 +826,16 @@ static int pppol2tp_session_create(struct net *net, struct l2tp_tunnel *tunnel,
 	/* Error if tunnel socket is not prepped */
 	if (!tunnel->sock) {
 		error = -ENOENT;
+<<<<<<< HEAD
+=======
+		goto out;
+	}
+
+	/* Check that this session doesn't already exist */
+	error = -EEXIST;
+	session = l2tp_session_find(net, tunnel, session_id);
+	if (session != NULL)
+>>>>>>> f89f092a37445f02bad1cd3d01e8412588a548f5
 		goto out;
 	}
 

@@ -75,7 +75,6 @@
 #include <linux/uprobes.h>
 #include <linux/aio.h>
 #include <linux/compiler.h>
-#include <linux/kcov.h>
 
 #include <asm/pgtable.h>
 #include <asm/pgalloc.h>
@@ -385,11 +384,14 @@ static struct task_struct *dup_task_struct(struct task_struct *orig)
 
 	account_kernel_stack(ti, 1);
 
+<<<<<<< HEAD
 	kcov_task_init(tsk);
 
 #ifdef CONFIG_ANDROID_LMK_ADJ_RBTREE
 	RB_CLEAR_NODE(&tsk->adj_node);
 #endif
+=======
+>>>>>>> f89f092a37445f02bad1cd3d01e8412588a548f5
 	return tsk;
 
 free_ti:

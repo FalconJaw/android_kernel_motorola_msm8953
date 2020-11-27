@@ -1730,7 +1730,13 @@ int ipa3_reset_rt(enum ipa_ip_type ip, bool user_only)
 						"Header already deleted\n");
 						return -EINVAL;
 					}
+<<<<<<< HEAD
 				} else if (rule->proc_ctx) {
+=======
+				} else if (rule->proc_ctx &&
+					(!ipa3_check_idr_if_freed(
+						rule->proc_ctx))) {
+>>>>>>> f89f092a37445f02bad1cd3d01e8412588a548f5
 					hdr_proc_entry =
 						ipa3_id_find(
 						rule->rule.hdr_proc_ctx_hdl);

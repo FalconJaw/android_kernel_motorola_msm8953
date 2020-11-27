@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2019, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2020, The Linux Foundation. All rights reserved.
+>>>>>>> f89f092a37445f02bad1cd3d01e8412588a548f5
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1361,9 +1365,25 @@ static int msm_compr_configure_dsp_for_capture(struct snd_compr_stream *cstream)
 	pr_debug("%s: sample_rate = %d channels = %d bps = %d sample_word_size = %d\n",
 			__func__, prtd->sample_rate, prtd->num_channels,
 					 bits_per_sample, sample_word_size);
-	ret = q6asm_enc_cfg_blk_pcm_format_support_v3(prtd->audio_client,
-					prtd->sample_rate, prtd->num_channels,
-					bits_per_sample, sample_word_size);
+	switch (q6core_get_avs_version()) {
+	case (Q6_SUBSYS_AVS2_7):
+		ret = q6asm_enc_cfg_blk_pcm_format_support_v3(
+				prtd->audio_client,
+				prtd->sample_rate, prtd->num_channels,
+				bits_per_sample, sample_word_size);
+		break;
+	case (Q6_SUBSYS_AVS2_8):
+		ret = q6asm_enc_cfg_blk_pcm_format_support_v4(
+				prtd->audio_client, prtd->sample_rate,
+				prtd->num_channels, bits_per_sample,
+				sample_word_size, ASM_LITTLE_ENDIAN,
+				DEFAULT_QF);
+		break;
+	case (Q6_SUBSYS_INVALID):
+	default:
+		pr_err("%s: INVALID AVS IMAGE\n", __func__);
+		break;
+	}
 
 	return ret;
 }
@@ -2471,7 +2491,8 @@ static int msm_compr_pointer(struct snd_compr_stream *cstream,
 		tstamp.copied_total = prtd->received_total;
 	first_buffer = prtd->first_buffer;
 	if (atomic_read(&prtd->error)) {
-		pr_err("%s Got RESET EVENTS notification, return error\n",
+		pr_err_ratelimited(
+			"%s Got RESET EVENTS notification, return error\n",
 			__func__);
 		if (cstream->direction == SND_COMPRESS_PLAYBACK)
 			runtime->total_bytes_transferred = tstamp.copied_total;

@@ -1937,7 +1937,11 @@ static int32_t q6asm_callback(struct apr_client_data *data, void *priv)
 				pr_debug("%s: Invalid token buffer index %u\n",
 					__func__, data->token);
 				spin_unlock_irqrestore(&port->dsp_lock,
+<<<<<<< HEAD
 						dsp_flags);
+=======
+								dsp_flags);
+>>>>>>> f89f092a37445f02bad1cd3d01e8412588a548f5
 				spin_unlock_irqrestore(
 					&(session[session_id].session_lock),
 					flags);
